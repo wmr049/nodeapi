@@ -4,14 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.17.2",
     "debug": "^3.0.1",
     "express": "^4.15.4",
-    "http": "0.0.0"
+    "http": "0.0.0",
+    "mongoose": "^4.11.8"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
