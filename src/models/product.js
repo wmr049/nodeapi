@@ -34,6 +34,11 @@ const schema = new Schema({
         type: String,
         required: [true, 'As tags são obrigatório']
     }],
+    image: {
+        type: String,
+        required: true,
+        trim: true
+    }
 });
 
 module.exports = mongoose.model('Product', schema);
