@@ -35,8 +35,7 @@ const schema = new Schema({
         required: [true, 'As tags são obrigatório']
     }],
     image: {
-        type: String,
-        required: true,
+        type: String,        
         trim: true
     }
 });
