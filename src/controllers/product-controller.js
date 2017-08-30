@@ -60,7 +60,6 @@ exports.getById = async(req, res, next) => {
 exports.post = async(req, res, next) => {
 
     let contract = new ValidationContract();
-    let filename = '';
     contract.hasMinLen(req.body.title, 3, 'O titulo deve conter pelo menos 3 caracteres');
     contract.hasMinLen(req.body.slug, 3, 'O slug deve conter pelo menos 3 caracteres');
     contract.hasMinLen(req.body.description, 3, 'O descrição deve conter pelo menos 3 caracteres');
@@ -73,11 +72,10 @@ exports.post = async(req, res, next) => {
 
     try {
 
-        if (typeof req.body.image !== "undefined") {
             // Cria o Blob Service
             const blobSvc = azure.createBlobService(config.containerConnectionString);
 
-            let filename = "https://repofiles.blob.core.windows.net/product-images/product-images/" + guid.raw().toString() + '.jpg';
+            let filename = guid.raw().toString() + '.jpg';
             let rawdata = req.body.image;
             let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
             let type = matches[1];
@@ -91,7 +89,7 @@ exports.post = async(req, res, next) => {
                     filename = 'default-product.png'
                 }
             });
-        }
+        
 
         await repository.create({
             title: req.body.title,
@@ -100,7 +98,7 @@ exports.post = async(req, res, next) => {
             price: req.body.price,
             active: true,
             tags: req.body.tags,
-            image: filename
+            image: "https://repofiles.blob.core.windows.net/product-images/" + filename
         });
 
         res.status(201).send({
